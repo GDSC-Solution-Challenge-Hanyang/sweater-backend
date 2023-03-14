@@ -45,8 +45,8 @@ public class Comment {
 
     @Column(name = "deleted_at")
     private LocalDateTime deletedAt;
-
     @Column(name = "status")
+    @Enumerated(EnumType.STRING)
     private Status status;
 
 

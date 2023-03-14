@@ -38,6 +38,8 @@ public class GuideTitle {
     private LocalDateTime updatedAt;
 
     @Column(name = "status", length = 8)
+    @Enumerated(EnumType.STRING)
+
     private Status status;
 
     @OneToMany(mappedBy = "guideTitle")
