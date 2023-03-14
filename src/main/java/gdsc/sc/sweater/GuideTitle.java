@@ -37,9 +37,8 @@ public class GuideTitle {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-    @Column(name = "status", length = 8)
     @Enumerated(EnumType.STRING)
-
+    @Column(columnDefinition = "enum")
     private Status status;
 
     @OneToMany(mappedBy = "guideTitle")

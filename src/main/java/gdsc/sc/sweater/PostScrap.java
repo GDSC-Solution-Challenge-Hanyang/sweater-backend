@@ -21,7 +21,7 @@ public class PostScrap {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "mentor_id")®
+    @Column(name = "mentor_id")
     private Long mentorId;
     
     @Column(name = "created_at")

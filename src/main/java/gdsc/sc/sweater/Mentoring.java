@@ -36,8 +36,8 @@ public class Mentoring {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-    @Column(name = "status")
     @Enumerated(EnumType.STRING)
+    @Column(columnDefinition = "enum")
     private MentoringStatus status;
 
 }

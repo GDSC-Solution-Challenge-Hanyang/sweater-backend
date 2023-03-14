@@ -37,8 +37,8 @@ public class Member {
     @Column(name = "password")
     private String password;
 
-    @Column(name = "status")
     @Enumerated(EnumType.STRING)
+    @Column(columnDefinition = "enum")
     private Status status;
 
     
@@ -52,8 +52,8 @@ public class Member {
     @Column(name = "deleted_at")
     private LocalDateTime deletedAt;
 
-    @Column(name = "role")
     @Enumerated(EnumType.STRING)
+    @Column(columnDefinition = "enum")
     private MemberRole role;
 
     @OneToMany(mappedBy = "mentor")

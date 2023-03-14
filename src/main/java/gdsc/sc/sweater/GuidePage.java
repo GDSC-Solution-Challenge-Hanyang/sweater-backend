@@ -41,8 +41,10 @@ public class GuidePage {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-    @Column(name = "status")
+    @Enumerated(EnumType.STRING)
+    @Column(columnDefinition = "enum")
     private Status status;
+
     @Column(name = "link_url")
     private String linkUrl;
 

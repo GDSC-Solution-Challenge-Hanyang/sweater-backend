@@ -27,7 +27,7 @@ public class PostImgUrl {
     @JoinColumn(name = "post_id")
     private Post post;
 
-    @Column(name = "imgUrl")
+    @Column(name = "img_url")
     private String imgUrl;
 
     @Column(name = "created_at")
@@ -39,8 +39,9 @@ public class PostImgUrl {
     @Column(name = "deleted_at")
     private LocalDateTime deletedAt;
 
-    @Column(name = "status", length = 8)
+
     @Enumerated(EnumType.STRING)
+    @Column(columnDefinition = "enum")
     private Status status;
 
 }

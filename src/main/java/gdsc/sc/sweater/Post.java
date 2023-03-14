@@ -25,8 +25,8 @@ public class Post {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "post_id")
-    private Post post;
+    @JoinColumn(name = "member_id")
+    private Member member;
 
     @Column(name = "title", length = 50)
     private String title;
@@ -48,18 +48,10 @@ public class Post {
     @Column(name = "deleted_at")
     private LocalDateTime deletedAt;
 
-    @Column(name = "status", length = 8)
     @Enumerated(EnumType.STRING)
+    @Column(columnDefinition = "enum")
     private Status status;
 
-    @Column(name = "likeCount")
-    private Long likeCount;
-
-    @Column(name = "scrapCount")
-    private Long scrapCount;
-    
-    @Column(name = "commentCount")
-    private Long commentCount;
 
     @OneToMany(mappedBy = "post")
     private List<Comment> commentList = new ArrayList<>();
