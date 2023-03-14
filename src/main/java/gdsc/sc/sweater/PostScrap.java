@@ -9,16 +9,13 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Entity
-@Table(name = "post__scrap")
+@Table(name = "post_scrap")
 public class PostScrap {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "post_id")
-    private Long postId;
-    
     @Column(name = "mentor_id")
     private Long mentorId;
     

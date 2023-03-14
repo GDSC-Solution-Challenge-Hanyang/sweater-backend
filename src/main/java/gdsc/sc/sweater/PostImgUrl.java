@@ -35,6 +35,7 @@ public class PostImgUrl {
     private LocalDateTime deletedAt;
 
     @Column(name = "status", length = 8)
+    @Enumerated(EnumType.STRING)
     private Status status;
 
 }
