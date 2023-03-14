@@ -3,17 +3,22 @@ package gdsc.sc.sweater;
 import gdsc.sc.sweater.enums.MemberRole;
 import gdsc.sc.sweater.enums.Status;
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-@Setter
 @Entity
 @Table(name = "member")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@EntityListeners(value = AuditingEntityListener.class)
+
 public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

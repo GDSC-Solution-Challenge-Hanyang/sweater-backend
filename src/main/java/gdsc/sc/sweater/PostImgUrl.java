@@ -2,15 +2,20 @@ package gdsc.sc.sweater;
 
 import gdsc.sc.sweater.enums.Status;
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 
 @Getter
-@Setter
 @Entity
 @Table(name = "post_img_url")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@EntityListeners(value = AuditingEntityListener.class)
+
 public class PostImgUrl {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

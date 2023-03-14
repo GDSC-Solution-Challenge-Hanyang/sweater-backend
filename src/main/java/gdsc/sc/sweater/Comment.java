@@ -2,16 +2,22 @@ package gdsc.sc.sweater;
 
 import gdsc.sc.sweater.enums.Status;
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 
 @Getter
-@Setter
 @Entity
 @Table(name = "comment")
+@EntityListeners(value = AuditingEntityListener.class)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+
 public class Comment {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
