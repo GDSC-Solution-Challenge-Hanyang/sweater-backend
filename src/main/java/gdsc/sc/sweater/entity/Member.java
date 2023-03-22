@@ -1,4 +1,4 @@
-package gdsc.sc.sweater;
+package gdsc.sc.sweater.entity;
 
 import gdsc.sc.sweater.enums.MemberRole;
 import gdsc.sc.sweater.enums.Status;
@@ -6,7 +6,6 @@ import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
@@ -24,9 +23,6 @@ public class Member {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-    
-    @Column(name = "mentor_id")
-    private Long mentorId;
 
     @Column(name = "nickname", length = 10)
     private String nickname;
