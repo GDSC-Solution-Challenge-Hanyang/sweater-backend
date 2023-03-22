@@ -1,4 +1,4 @@
-package gdsc.sc.sweater.common.exception2;
+package gdsc.sc.sweater.common.exception;
 
 public class CustomException extends RuntimeException {
 
