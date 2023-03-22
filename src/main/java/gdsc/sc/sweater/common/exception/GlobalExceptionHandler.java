@@ -15,11 +15,6 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RequiredArgsConstructor
 public class GlobalExceptionHandler {
 
-//    @ExceptionHandler(BadRequestException.class)
-//    public ResponseEntity<BasicResponse> handle(BadRequestException e) {
-//        BasicResponse exceptionDto = new BasicResponse(e.getMessage(), HttpStatus.BAD_REQUEST);
-//        return new ResponseEntity<>(exceptionDto, HttpStatus.BAD_REQUEST);
-//    }
 
     @ExceptionHandler(CustomException.class)
     public ResponseEntity<ErrorResponse> exceptionHandler(CustomException customException) {

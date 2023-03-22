@@ -24,7 +24,7 @@ public class TestController {
     public ResponseEntity<MemberResponse> getMember(@RequestParam Long id) {
         Optional<Member> member = testRepository.findById(id);
         if (member.isEmpty())
-            throw new CustomException(ErrorCode.USER_NOT_FOUND);
+            throw new CustomException(ErrorCode.MEMBER_NOT_FOUND);
         MemberResponse memberResponse = new MemberResponse(member.get().getId(), member.get().getNickname());
         return new ResponseEntity<>(memberResponse, HttpStatus.OK);
     }
