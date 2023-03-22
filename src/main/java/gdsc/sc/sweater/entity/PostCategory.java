@@ -1,4 +1,4 @@
-package gdsc.sc.sweater;
+package gdsc.sc.sweater.entity;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
