@@ -1,6 +1,7 @@
 package gdsc.sc.sweater;
 
 import gdsc.sc.sweater.enums.Status;
+import gdsc.sc.sweater.post.dto.CreatePostRequest;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -12,7 +13,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-@Getter
+@Getter @Setter
 @Entity
 @Table(name = "post")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -64,4 +65,14 @@ public class Post {
 
     @OneToMany(mappedBy = "post")
     private List<PostImgUrl> postImgUrlList = new ArrayList<>();
+
+
+    public static Post createPost(CreatePostRequest request) {
+        Post post = new Post();
+        post.setTitle(request.getTitle());
+        post.setContent(request.getContent());
+        return post;
+    }
+
+
 }
