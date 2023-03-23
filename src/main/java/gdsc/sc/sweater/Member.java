@@ -2,6 +2,7 @@ package gdsc.sc.sweater;
 
 import gdsc.sc.sweater.enums.MemberRole;
 import gdsc.sc.sweater.enums.Status;
+import gdsc.sc.sweater.member.dto.CreateMemberRequest;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -13,20 +14,17 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-@Getter
+@Getter @Setter
 @Entity
 @Table(name = "member")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@EntityListeners(value = AuditingEntityListener.class)
+//@EntityListeners(value = AuditingEntityListener.class)
 
 public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-    
-    @Column(name = "mentor_id")
-    private Long mentorId;
 
     @Column(name = "nickname", length = 10)
     private String nickname;
@@ -56,9 +54,23 @@ public class Member {
     @Column(columnDefinition = "enum")
     private MemberRole role;
 
-    @OneToMany(mappedBy = "mentor")
-    private List<Mentoring> mentorList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "mentee")
-    private List<Mentoring> menteeList = new ArrayList<>();
+    public static Member createMember(CreateMemberRequest request) {
+        Member member = new Member();
+        member.setNickname(request.getNickName());
+        member.setEmail(request.getEmail());
+        member.setPassword(request.getPwd());
+        member.setCreatedAt( LocalDateTime.now());
+        member.setUpdatedAt(LocalDateTime.now());
+        member.setStatus(Status.ACTIVE);
+        member.setRole(request.getRole());
+
+        return member;
+    }
+
+//    @OneToMany(mappedBy = "mentor")
+//    private List<Mentoring> mentorList = new ArrayList<>();
+//
+//    @OneToMany(mappedBy = "mentee")
+//    private List<Mentoring> menteeList = new ArrayList<>();
 }

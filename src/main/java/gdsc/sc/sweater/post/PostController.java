@@ -12,9 +12,9 @@ public class PostController {
 
     private final PostService postService;
 
-    @PostMapping()
-    public CreatePostResponse createPost(@RequestBody CreatePostRequest request) {
-
-    }
+//    @PostMapping()
+//    public CreatePostResponse createPost(@RequestBody CreatePostRequest request) {
+//
+//    }
 
 }

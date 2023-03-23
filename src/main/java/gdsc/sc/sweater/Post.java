@@ -17,7 +17,7 @@ import java.util.List;
 @Entity
 @Table(name = "post")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@EntityListeners(value = AuditingEntityListener.class)
+//@EntityListeners(value = AuditingEntityListener.class)
 
 public class Post {
     @Id
@@ -53,24 +53,29 @@ public class Post {
     @Column(columnDefinition = "enum")
     private Status status;
 
+//
+//    @OneToMany(mappedBy = "post")
+//    private List<Comment> commentList = new ArrayList<>();
+//
+//    @OneToMany(mappedBy = "post")
+//    private List<PostLike> postLikeList = new ArrayList<>();
+//
+//    @OneToMany(mappedBy = "post")
+//    private List<PostScrap> postScrapList = new ArrayList<>();
+//
+//    @OneToMany(mappedBy = "post")
+//    private List<PostImgUrl> postImgUrlList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "post")
-    private List<Comment> commentList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "post")
-    private List<PostLike> postLikeList = new ArrayList<>();
-
-    @OneToMany(mappedBy = "post")
-    private List<PostScrap> postScrapList = new ArrayList<>();
-
-    @OneToMany(mappedBy = "post")
-    private List<PostImgUrl> postImgUrlList = new ArrayList<>();
-
-
-    public static Post createPost(CreatePostRequest request) {
+    public static Post createPost(CreatePostRequest request, Member member) {
         Post post = new Post();
+        post.setMember(member);
         post.setTitle(request.getTitle());
         post.setContent(request.getContent());
+        post.setCreatedAt(LocalDateTime.now());
+        post.setUpdatedAt(LocalDateTime.now());
+        post.setCategory(request.getCategoryId());
+        post.setStatus(Status.ACTIVE);
         return post;
     }
 

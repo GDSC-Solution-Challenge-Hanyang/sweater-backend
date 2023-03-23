@@ -14,10 +14,11 @@ public class PostService {
 
     private final PostRepository postRepository;
 
-    public CreatePostResponse createPost(CreatePostRequest request) {
-        Post post = Post.createPost(request);
-        Post save = postRepository.save(post);
-        postRepository.save(post);
-    }
+//    public CreatePostResponse createPost(CreatePostRequest request) {
+//        Post post = Post.createPost(request);
+//        Post save = postRepository.save(post);
+//        postRepository.save(post);
+//        return post;
+//    }
 
 }
