@@ -1,7 +1,7 @@
 package gdsc.sc.sweater.post;
 
-import gdsc.sc.sweater.Member;
-import gdsc.sc.sweater.Post;
+import gdsc.sc.sweater.entity.Member;
+import gdsc.sc.sweater.entity.Post;
 import gdsc.sc.sweater.enums.MemberRole;
 import gdsc.sc.sweater.member.MemberRepository;
 import gdsc.sc.sweater.member.dto.CreateMemberRequest;

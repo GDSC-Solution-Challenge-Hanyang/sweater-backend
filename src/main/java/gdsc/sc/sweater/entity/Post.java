@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -52,18 +52,18 @@ public class Post {
     @Column(columnDefinition = "enum")
     private Status status;
 
-//
-//    @OneToMany(mappedBy = "post")
-//    private List<Comment> commentList = new ArrayList<>();
-//
-//    @OneToMany(mappedBy = "post")
-//    private List<PostLike> postLikeList = new ArrayList<>();
-//
-//    @OneToMany(mappedBy = "post")
-//    private List<PostScrap> postScrapList = new ArrayList<>();
-//
-//    @OneToMany(mappedBy = "post")
-//    private List<PostImgUrl> postImgUrlList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "post")
+    private List<Comment> commentList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "post")
+    private List<PostLike> postLikeList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "post")
+    private List<PostScrap> postScrapList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "post")
+    private List<PostImgUrl> postImgUrlList = new ArrayList<>();
 
 
     public static Post createPost(CreatePostRequest request, Member member) {
