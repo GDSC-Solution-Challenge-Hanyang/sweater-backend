@@ -1,4 +1,4 @@
-package gdsc.sc.sweater;
+package gdsc.sc.sweater.entity;
 
 import gdsc.sc.sweater.enums.Status;
 import gdsc.sc.sweater.post.dto.CreatePostRequest;
@@ -6,7 +6,6 @@ import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
