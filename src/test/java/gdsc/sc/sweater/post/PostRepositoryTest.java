@@ -1,11 +1,14 @@
 package gdsc.sc.sweater.post;
 
+import gdsc.sc.sweater.common.exception.CustomException;
+import gdsc.sc.sweater.common.exception.ErrorCode;
 import gdsc.sc.sweater.entity.Member;
 import gdsc.sc.sweater.entity.Post;
 import gdsc.sc.sweater.enums.MemberRole;
 import gdsc.sc.sweater.member.MemberRepository;
 import gdsc.sc.sweater.member.dto.CreateMemberRequest;
 import gdsc.sc.sweater.post.dto.CreatePostRequest;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -15,6 +18,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.transaction.annotation.Transactional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * H2를 기반으로 테스트용 데이터베이스를 구축
@@ -22,7 +26,6 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @DataJpaTest
 @Transactional
-
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class PostRepositoryTest {
 
@@ -56,6 +59,10 @@ public class PostRepositoryTest {
         Member savedMember = memberRepository.save(member);
         Post savedPost = postRepository.save(post);
 
+        Member findMember = memberRepository.findById(savedMember.getId()).get();
+        assertThat(findMember.getId()).isEqualTo(member.getId());
+        assertThat(findMember).isEqualTo(member);
+
         //then
         assertThat(savedMember.getId()).isNotNull();
         assertThat(savedMember.getNickname()).isEqualTo(member.getNickname());
@@ -63,18 +70,17 @@ public class PostRepositoryTest {
         assertThat(savedMember.getPassword()).isEqualTo(member.getPassword());
         assertThat(savedMember.getRole()).isEqualTo(member.getRole());
 
-
-        assertThat(savedMember).isEqualTo(member);
-        assertThat(savedPost).isEqualTo(post);
-
         assertThat(savedPost.getId()).isNotNull();
         assertThat(savedPost.getMember()).isEqualTo(post.getMember());
         assertThat(savedPost.getTitle()).isEqualTo(post.getTitle());
         assertThat(savedPost.getCategory()).isEqualTo(post.getCategory());
         assertThat(savedPost.getContent()).isEqualTo(post.getContent());
+
+        assertThat(savedPost.getMember()).isEqualTo(findMember);
+
     }
 
-    private CreatePostRequest postRequest() {
+    static CreatePostRequest postRequest() {
         return CreatePostRequest.builder()
                 .title("title")
                 .content("content")
@@ -82,7 +88,7 @@ public class PostRepositoryTest {
                 .build();
     }
 
-    private CreateMemberRequest memberRequest() {
+    static CreateMemberRequest memberRequest() {
         return CreateMemberRequest.builder()
                 .nickName("nickName")
                 .email("email")

@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class CreatePostResponse {
 
+    private Long postId;
     private Long memberId;
     private String nickName;
     private String title;
