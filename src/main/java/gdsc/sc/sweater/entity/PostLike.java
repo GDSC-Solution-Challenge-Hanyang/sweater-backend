@@ -22,9 +22,7 @@ public class PostLike {
 
     @Column(name = "member_id")
     private Long memberId;
-    
-    @Column(name = "mentor_id")
-    private Long mentorId;
+
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;

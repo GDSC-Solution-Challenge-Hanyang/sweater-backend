@@ -1,6 +1,6 @@
 package gdsc.sc.sweater.post;
 
-import gdsc.sc.sweater.Post;
+import gdsc.sc.sweater.entity.Post;
 import gdsc.sc.sweater.post.dto.CreatePostRequest;
 import gdsc.sc.sweater.post.dto.CreatePostResponse;
 import lombok.RequiredArgsConstructor;
