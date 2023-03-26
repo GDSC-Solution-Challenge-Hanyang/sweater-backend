@@ -3,21 +3,22 @@ package gdsc.sc.sweater.post.dto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Getter
 @Builder
 @AllArgsConstructor
+//@NoArgsConstructor
 public class CreatePostResponse {
 
-    private Long postId;
-    private Long memberId;
-    private String nickName;
-    private String title;
-    private String content;
-    private LocalDateTime createdAt;
+     String postId;
+     String memberId;
+     String nickName;
+     String title;
+     String content;
+     LocalDateTime createdAt;
 
 //    @Builder
 //    public CreatePostResponse(Long memberId, String nickName, String title, String content, LocalDateTime createdAt) {

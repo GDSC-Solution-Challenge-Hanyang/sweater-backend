@@ -1,14 +1,11 @@
 package gdsc.sc.sweater.post;
-
-import gdsc.sc.sweater.common.exception.CustomException;
-import gdsc.sc.sweater.common.exception.ErrorCode;
 import gdsc.sc.sweater.entity.Member;
 import gdsc.sc.sweater.entity.Post;
 import gdsc.sc.sweater.enums.MemberRole;
 import gdsc.sc.sweater.member.MemberRepository;
 import gdsc.sc.sweater.member.dto.CreateMemberRequest;
 import gdsc.sc.sweater.post.dto.CreatePostRequest;
-import org.assertj.core.api.Assertions;
+import gdsc.sc.sweater.post.dto.CreatePostResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -17,8 +14,9 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
+
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * H2를 기반으로 테스트용 데이터베이스를 구축
@@ -44,16 +42,15 @@ public class PostRepositoryTest {
     @BeforeEach
     @Test
     void createMember() {
-        Member member = Member.createMember(memberRequest());
-
+        Member member = Member.createMember(createMemberRequest());
     }
 
     @Test
     @DisplayName("게시물 생성")
     void createPost() {
         //given
-        Member member = Member.createMember(memberRequest());
-        Post post = Post.createPost(postRequest(), member);
+        Member member = Member.createMember(createMemberRequest());
+        Post post = Post.createPost(createPostRequest(), member);
 
         //when
         Member savedMember = memberRepository.save(member);
@@ -70,6 +67,7 @@ public class PostRepositoryTest {
         assertThat(savedMember.getPassword()).isEqualTo(member.getPassword());
         assertThat(savedMember.getRole()).isEqualTo(member.getRole());
 
+        assertThat(savedPost).isNotNull();
         assertThat(savedPost.getId()).isNotNull();
         assertThat(savedPost.getMember()).isEqualTo(post.getMember());
         assertThat(savedPost.getTitle()).isEqualTo(post.getTitle());
@@ -80,15 +78,26 @@ public class PostRepositoryTest {
 
     }
 
-    static CreatePostRequest postRequest() {
+    static CreatePostRequest createPostRequest() {
         return CreatePostRequest.builder()
                 .title("title")
                 .content("content")
-                .categoryId(1)
+                .categoryId("1")
                 .build();
     }
 
-    static CreateMemberRequest memberRequest() {
+    static CreatePostResponse createPostResponse() {
+        return CreatePostResponse.builder()
+                .postId("1")
+                .memberId("1")
+                .nickName("nickName")
+                .title("title")
+                .content("content")
+                .createdAt(LocalDateTime.now())
+                .build();
+    }
+
+    static CreateMemberRequest createMemberRequest() {
         return CreateMemberRequest.builder()
                 .nickName("nickName")
                 .email("email")
@@ -96,4 +105,5 @@ public class PostRepositoryTest {
                 .role(MemberRole.MENTEE)
                 .build();
     }
+
 }

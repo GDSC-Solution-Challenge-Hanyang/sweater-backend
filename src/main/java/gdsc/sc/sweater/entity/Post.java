@@ -70,10 +70,10 @@ public class Post {
         Post post = new Post();
         post.setMember(member);
         post.setTitle(request.getTitle());
+        post.setCategory(Integer.parseInt(request.getCategoryId()));
         post.setContent(request.getContent());
         post.setCreatedAt(LocalDateTime.now());
         post.setUpdatedAt(LocalDateTime.now());
-        post.setCategory(request.getCategoryId());
         post.setStatus(Status.ACTIVE);
         return post;
     }
