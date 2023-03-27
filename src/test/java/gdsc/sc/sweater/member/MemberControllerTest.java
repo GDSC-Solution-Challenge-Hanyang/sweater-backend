@@ -7,6 +7,8 @@ import gdsc.sc.sweater.member.dto.CreateMemberResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -25,10 +27,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-//@WebMvcTest(MemberController.class)
-//@EntityScan(basePackages = "gdsc.sc.sweater.entity")
-@SpringBootTest
-@AutoConfigureMockMvc
+@WebMvcTest
+@ExtendWith(MockitoExtension.class)
 public class MemberControllerTest {
 
     @Autowired
@@ -41,40 +41,19 @@ public class MemberControllerTest {
     private MockMvc mockMvc;
 
 
-//    @BeforeEach
-//    public void init() {
-//        mockMvc = MockMvcBuilders.standaloneSetup(memberController).build();
-//    }
-
-    @BeforeEach
-    public void setup() {
-        CreateMemberRequest createMemberRequest = memberRequest();
-        CreateMemberResponse createMemberResponse = memberResponse();
-    }
-
     @Test
     @DisplayName("맴버 생성 controller")
     void create() throws Exception {
         //given
         CreateMemberRequest createMemberRequest = memberRequest();
         CreateMemberResponse createMemberResponse = memberResponse();
-
-//        when(memberService.create(createMemberRequest)).thenReturn(Member.createMemberByRequest(createMemberRequest));
-        //given
         Member member = Member.createMemberByRequest(createMemberRequest);
-        member.setId(1L); // Set an id for the mocked member object
+        member.setId(1L);
 
-//        when(memberService.create(createMemberRequest)).thenReturn(member);
+        //when
         when(memberService.create(any(CreateMemberRequest.class))).thenReturn(member);
 
-
-//        //when&then
-//        mockMvc.perform(post("/member/signup")
-//                        .contentType(MediaType.APPLICATION_JSON)
-//                        .content(objectMapper.writeValueAsString(createMemberRequest)))
-//                .andExpect(status().isOk())
-//                .andExpect(jsonPath(createMemberRequest.getEmail()).value(createMemberResponse.getEmail()));
-
+        //then
         mockMvc.perform(post("/member/signup")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(createMemberRequest)))
