@@ -1,7 +1,6 @@
 package gdsc.sc.sweater.entity;
 
 import gdsc.sc.sweater.enums.Status;
-import gdsc.sc.sweater.post.dto.CreatePostRequest;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -64,19 +63,6 @@ public class Post {
 
     @OneToMany(mappedBy = "post")
     private List<PostImgUrl> postImgUrlList = new ArrayList<>();
-
-
-    public static Post createPost(CreatePostRequest request, Member member) {
-        Post post = new Post();
-        post.setMember(member);
-        post.setTitle(request.getTitle());
-        post.setContent(request.getContent());
-        post.setCreatedAt(LocalDateTime.now());
-        post.setUpdatedAt(LocalDateTime.now());
-        post.setCategory(request.getCategoryId());
-        post.setStatus(Status.ACTIVE);
-        return post;
-    }
 
 
 }

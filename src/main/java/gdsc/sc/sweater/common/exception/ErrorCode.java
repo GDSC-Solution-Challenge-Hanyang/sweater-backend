@@ -6,7 +6,8 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 public enum ErrorCode {
 
 
-    MEMBER_NOT_FOUND(401, "1001", "없는 유저입니다.");
+    MEMBER_NOT_FOUND(404, "1001", "없는 유저입니다."),
+    MEMBER_DUPLICATED(409, "1002", "중복된 유저입니다.");
 
 
     private int status;
