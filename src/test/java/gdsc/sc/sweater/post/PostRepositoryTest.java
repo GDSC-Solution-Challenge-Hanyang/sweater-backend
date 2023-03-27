@@ -22,7 +22,6 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @DataJpaTest
 @Transactional
-
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class PostRepositoryTest {
 
@@ -41,7 +40,7 @@ public class PostRepositoryTest {
     @BeforeEach
     @Test
     void createMember() {
-        Member member = Member.createMember(memberRequest());
+        Member member = Member.createMemberByRequest(memberRequest());
 
     }
 
@@ -49,7 +48,7 @@ public class PostRepositoryTest {
     @DisplayName("게시물 생성")
     void createPost() {
         //given
-        Member member = Member.createMember(memberRequest());
+        Member member = Member.createMemberByRequest(memberRequest());
         Post post = Post.createPost(postRequest(), member);
 
         //when
@@ -82,7 +81,7 @@ public class PostRepositoryTest {
                 .build();
     }
 
-    private CreateMemberRequest memberRequest() {
+    static CreateMemberRequest memberRequest() {
         return CreateMemberRequest.builder()
                 .nickName("nickName")
                 .email("email")
