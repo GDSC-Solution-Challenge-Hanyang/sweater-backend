@@ -7,8 +7,9 @@ public enum ErrorCode {
 
 
     MEMBER_NOT_FOUND(404, "1001", "없는 유저입니다."),
-    MEMBER_DUPLICATED(409, "1002", "중복된 유저입니다.");
+    MEMBER_DUPLICATED(409, "1002", "중복된 유저입니다."),
 
+    EMPTY_POST_LIST(404, "2001", "게시물이 없어요.");
 
     private int status;
     private final String code;
