@@ -66,6 +66,7 @@ public class Post {
     private List<PostImgUrl> postImgUrlList = new ArrayList<>();
 
 
+
     public static Post createPost(CreatePostRequest request, Member member) {
         Post post = new Post();
         post.setMember(member);

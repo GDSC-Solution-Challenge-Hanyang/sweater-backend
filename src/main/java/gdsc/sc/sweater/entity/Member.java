@@ -8,11 +8,8 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @Getter @Setter
 @Entity
@@ -55,7 +52,14 @@ public class Member {
     private MemberRole role;
 
 
-    public static Member createMember(CreateMemberRequest request) {
+//    @OneToMany(mappedBy = "mentor")
+//    private List<Mentoring> mentorList = new ArrayList<>();
+//
+//    @OneToMany(mappedBy = "mentee")
+//    private List<Mentoring> menteeList = new ArrayList<>();
+
+
+    public static Member createMemberByRequest(CreateMemberRequest request) {
         Member member = new Member();
         member.setNickname(request.getNickName());
         member.setEmail(request.getEmail());
@@ -74,17 +78,11 @@ public class Member {
         member.setNickname(request.getNickName());
         member.setEmail(request.getEmail());
         member.setPassword(request.getPwd());
-        member.setCreatedAt( LocalDateTime.now());
+        member.setCreatedAt(LocalDateTime.now());
         member.setUpdatedAt(LocalDateTime.now());
         member.setStatus(Status.ACTIVE);
         member.setRole(request.getRole());
-
         return member;
     }
 
-//    @OneToMany(mappedBy = "mentor")
-//    private List<Mentoring> mentorList = new ArrayList<>();
-//
-//    @OneToMany(mappedBy = "mentee")
-//    private List<Mentoring> menteeList = new ArrayList<>();
 }
