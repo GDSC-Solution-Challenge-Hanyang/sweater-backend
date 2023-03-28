@@ -2,23 +2,20 @@ package gdsc.sc.sweater.post;
 
 import gdsc.sc.sweater.common.exception.CustomException;
 import gdsc.sc.sweater.common.exception.ErrorCode;
+import gdsc.sc.sweater.entity.Comment;
 import gdsc.sc.sweater.entity.Member;
 import gdsc.sc.sweater.entity.Post;
 import gdsc.sc.sweater.enums.Status;
 import gdsc.sc.sweater.member.MemberRepository;
-import gdsc.sc.sweater.post.dto.CreatePostRequest;
-import gdsc.sc.sweater.post.dto.CreatePostResponse;
-import gdsc.sc.sweater.post.dto.PostListResponse;
+import gdsc.sc.sweater.post.dto.*;
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
-import static gdsc.sc.sweater.common.exception.ErrorCode.EMPTY_POST_LIST;
+import static gdsc.sc.sweater.common.exception.ErrorCode.*;
 
 @Service
 @Transactional(readOnly = true)
@@ -61,16 +58,19 @@ public class PostService {
             throw new CustomException(EMPTY_POST_LIST);
         }
         return postList.stream()
-                .map(p -> PostListResponse.builder()
-                        .postId(p.getId())
-                        .title(p.getTitle())
-                        .content(p.getContent())
-                        .nickname(p.getMember().getNickname())
-                        .likeCount(p.getPostLikeList().size())
-                        .commentCount(p.getCommentList().size())
-                        .scrapCount(p.getPostScrapList().size())
-                        .createdAt(String.valueOf(p.getCreatedAt()))
-                        .build())
+                .map(p -> new PostListResponse(p))
                 .collect(Collectors.toList());
+    }
+
+    /**
+     * 게시물 상세
+     */
+    public PostResponse getPost(Long postId) {
+        Post post = postRepository.findById(postId).orElseThrow(() -> new CustomException(POST_NOT_FOUND));
+        List<Comment> commentList = post.getCommentList();
+        List<CommentDTO> commentDTOList = commentList.stream()
+                .map(c -> new CommentDTO(c))
+                .collect(Collectors.toList());
+        return new PostResponse(post, commentDTOList);
     }
 }

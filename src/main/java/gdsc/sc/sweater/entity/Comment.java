@@ -1,15 +1,19 @@
 package gdsc.sc.sweater.entity;
 
+import gdsc.sc.sweater.comment.dto.CreateCommentRequest;
 import gdsc.sc.sweater.enums.Status;
+import gdsc.sc.sweater.post.dto.CreatePostRequest;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
-@Getter
+@Getter @Setter
 @Entity
 @Table(name = "comment")
 @EntityListeners(value = AuditingEntityListener.class)
@@ -49,5 +53,16 @@ public class Comment {
     @Column(columnDefinition = "enum")
     private Status status;
 
+    public static Comment createTestComment(Post post, Member member, CreateCommentRequest request) {
+        Comment comment = new Comment();
+        comment.setId(1L);
+        comment.setPost(post);
+        comment.setMember(member);
+        comment.setContent(request.getContent());
+        comment.createdAt = LocalDateTime.now();
+        comment.updatedAt = LocalDateTime.now();
+        comment.status = Status.ACTIVE;
+        return comment;
+    }
 
 }
