@@ -3,6 +3,7 @@ package gdsc.sc.sweater.post;
 import gdsc.sc.sweater.post.dto.CreatePostRequest;
 import gdsc.sc.sweater.post.dto.CreatePostResponse;
 import gdsc.sc.sweater.post.dto.PostListResponse;
+import gdsc.sc.sweater.post.dto.PostResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,5 +37,13 @@ public class PostController {
     }
 
 
+    /**
+     * 게시물 상세
+     */
+    @GetMapping("/{postId}")
+    public ResponseEntity<PostResponse> getPostDetail(@PathVariable Long postId) {
+        PostResponse post = postService.getPost(postId);
+        return new ResponseEntity<>(post, HttpStatus.OK);
+    }
 
 }

@@ -11,6 +11,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 import static gdsc.sc.sweater.post.PostMock.*;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -77,12 +78,28 @@ public class PostRepositoryTest {
         List<Post> posts = postRepository.findAllByCategoryAndStatus(categoryId, Status.ACTIVE);
 
         // then
-        assertThat(posts).isNotEmpty(); // Modify this check according to your test data
+        assertThat(posts).isNotEmpty();
         assertThat(posts.size()).isEqualTo(1);
 
         assertNotNull(posts.get(0).getId());
         assertEquals(posts.get(0).getMember().getId(), member.getId());
         assertEquals(posts.get(0).getCategory(), categoryId);
+    }
+
+    @Test
+    public void findByIdTest() {
+        // given
+        int categoryId = 1;
+        Post post = postRepository.save(Post.createPost(createPostRequest(), member));
+
+        //when
+        Optional<Post> foundPost = postRepository.findById(post.getId());
+
+        //then
+        assertNotNull(foundPost);
+        assertEquals(post.getId(),foundPost.get().getId());
+        assertEquals(post.getTitle(), foundPost.get().getTitle());
+        assertEquals(post.getContent(), foundPost.get().getContent());
     }
 
 }

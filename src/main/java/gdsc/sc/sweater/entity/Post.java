@@ -89,8 +89,13 @@ public class Post {
         post.setCreatedAt(LocalDateTime.now());
         post.setUpdatedAt(LocalDateTime.now());
         post.setStatus(Status.ACTIVE);
+        post.setPostLikeList(new ArrayList<>());
+        post.setPostScrapList(new ArrayList<>());
         return post;
     }
 
+    public void setCommentListForTesting(List<Comment> commentList) {
+        this.commentList = commentList;
+    }
 
 }
