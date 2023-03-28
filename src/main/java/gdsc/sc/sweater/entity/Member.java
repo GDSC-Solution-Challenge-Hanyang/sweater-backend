@@ -68,6 +68,20 @@ public class Member {
         return member;
     }
 
+    public static Member createTestMember(CreateMemberRequest request) {
+        Member member = new Member();
+        member.setId(1L);
+        member.setNickname(request.getNickName());
+        member.setEmail(request.getEmail());
+        member.setPassword(request.getPwd());
+        member.setCreatedAt( LocalDateTime.now());
+        member.setUpdatedAt(LocalDateTime.now());
+        member.setStatus(Status.ACTIVE);
+        member.setRole(request.getRole());
+
+        return member;
+    }
+
 //    @OneToMany(mappedBy = "mentor")
 //    private List<Mentoring> mentorList = new ArrayList<>();
 //

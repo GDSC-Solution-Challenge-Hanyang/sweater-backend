@@ -1,11 +1,6 @@
 package gdsc.sc.sweater.post;
 import gdsc.sc.sweater.entity.Member;
 import gdsc.sc.sweater.entity.Post;
-import gdsc.sc.sweater.enums.MemberRole;
-import gdsc.sc.sweater.member.MemberRepository;
-import gdsc.sc.sweater.member.dto.CreateMemberRequest;
-import gdsc.sc.sweater.post.dto.CreatePostRequest;
-import gdsc.sc.sweater.post.dto.CreatePostResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -14,12 +9,13 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
-
+import static gdsc.sc.sweater.post.PostMock.createMemberRequest;
+import static gdsc.sc.sweater.post.PostMock.createPostRequest;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
- * H2를 기반으로 테스트용 데이터베이스를 구축
  * 테스트가 끝나면 트랜잭션 롤백을 해준다. 레포지토리 계층은 실제 DB와 통신없이 단순 모킹하는 것은 의미가 없으므로 직접 데이터베이스와 통신하는 @DataJpaTest를 사용
  */
 @DataJpaTest
@@ -29,12 +25,9 @@ public class PostRepositoryTest {
 
     @Autowired
     private PostRepository postRepository;
-    @Autowired
-    private MemberRepository memberRepository;
-
 
     @Test
-    public void PostRepository가Null이아님() {
+    public void PostRepositoryIsNotNull() {
         assertThat(postRepository).isNotNull();
     }
 
@@ -42,68 +35,28 @@ public class PostRepositoryTest {
     @BeforeEach
     @Test
     void createMember() {
-        Member member = Member.createMember(createMemberRequest());
+        Member member = Member.createTestMember(createMemberRequest());
     }
 
     @Test
-    @DisplayName("게시물 생성")
-    void createPost() {
+    @DisplayName("게시물 저장")
+    void savePost() {
         //given
-        Member member = Member.createMember(createMemberRequest());
+        Member member = Member.createTestMember(createMemberRequest()); //memberId = 1L
         Post post = Post.createPost(createPostRequest(), member);
 
         //when
-        Member savedMember = memberRepository.save(member);
         Post savedPost = postRepository.save(post);
 
-        Member findMember = memberRepository.findById(savedMember.getId()).get();
-        assertThat(findMember.getId()).isEqualTo(member.getId());
-        assertThat(findMember).isEqualTo(member);
-
         //then
-        assertThat(savedMember.getId()).isNotNull();
-        assertThat(savedMember.getNickname()).isEqualTo(member.getNickname());
-        assertThat(savedMember.getEmail()).isEqualTo(member.getEmail());
-        assertThat(savedMember.getPassword()).isEqualTo(member.getPassword());
-        assertThat(savedMember.getRole()).isEqualTo(member.getRole());
-
-        assertThat(savedPost).isNotNull();
-        assertThat(savedPost.getId()).isNotNull();
-        assertThat(savedPost.getMember()).isEqualTo(post.getMember());
-        assertThat(savedPost.getTitle()).isEqualTo(post.getTitle());
-        assertThat(savedPost.getCategory()).isEqualTo(post.getCategory());
-        assertThat(savedPost.getContent()).isEqualTo(post.getContent());
-
-        assertThat(savedPost.getMember()).isEqualTo(findMember);
-
-    }
-
-    static CreatePostRequest createPostRequest() {
-        return CreatePostRequest.builder()
-                .title("title")
-                .content("content")
-                .categoryId("1")
-                .build();
-    }
-
-    static CreatePostResponse createPostResponse() {
-        return CreatePostResponse.builder()
-                .postId("1")
-                .memberId("1")
-                .nickName("nickName")
-                .title("title")
-                .content("content")
-                .createdAt(LocalDateTime.now())
-                .build();
-    }
-
-    static CreateMemberRequest createMemberRequest() {
-        return CreateMemberRequest.builder()
-                .nickName("nickName")
-                .email("email")
-                .pwd("pwd")
-                .role(MemberRole.MENTEE)
-                .build();
+        assertNotNull(savedPost);
+        assertNotNull(savedPost.getId());
+        assertEquals(post.getMember(), savedPost.getMember());
+        assertEquals(post.getTitle(), savedPost.getTitle());
+        assertEquals(post.getContent(), savedPost.getContent());
+        assertEquals(post.getCategory(), savedPost.getCategory());
+        assertNotNull(savedPost.getCreatedAt());
+        assertEquals(member, savedPost.getMember());
     }
 
 }

@@ -28,8 +28,8 @@ public class PostService {
         Post savedPost = postRepository.save(Post.createPost(request, member));
 
         return CreatePostResponse.builder()
-                .postId(String.valueOf(savedPost.getId()))
-                .memberId(String.valueOf(savedPost.getMember().getId()))
+                .postId(savedPost.getId())
+                .memberId(savedPost.getMember().getId())
                 .nickName(savedPost.getMember().getNickname())
                 .title(savedPost.getTitle())
                 .content(savedPost.getContent())

@@ -11,8 +11,9 @@ import java.util.List;
 @Getter
 @Builder
 @AllArgsConstructor
-//@NoArgsConstructor
-public class CreatePostRequest {
+@NoArgsConstructor
+public class
+CreatePostRequest {
 
     private String title;
     private String content;
