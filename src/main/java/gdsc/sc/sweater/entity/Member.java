@@ -52,6 +52,13 @@ public class Member {
     private MemberRole role;
 
 
+//    @OneToMany(mappedBy = "mentor")
+//    private List<Mentoring> mentorList = new ArrayList<>();
+//
+//    @OneToMany(mappedBy = "mentee")
+//    private List<Mentoring> menteeList = new ArrayList<>();
+
+
     public static Member createMemberByRequest(CreateMemberRequest request) {
         Member member = new Member();
         member.setNickname(request.getNickName());
@@ -65,22 +72,17 @@ public class Member {
         return member;
     }
 
-    public static Member createMember(String nickname, String email, String pwd, MemberRole role) {
+    public static Member createTestMember(CreateMemberRequest request) {
         Member member = new Member();
-        member.setNickname(nickname);
-        member.setEmail(email);
-        member.setPassword(pwd);
+        member.setId(1L);
+        member.setNickname(request.getNickName());
+        member.setEmail(request.getEmail());
+        member.setPassword(request.getPwd());
         member.setCreatedAt(LocalDateTime.now());
         member.setUpdatedAt(LocalDateTime.now());
         member.setStatus(Status.ACTIVE);
-        member.setRole(role);
-
+        member.setRole(request.getRole());
         return member;
     }
 
-//    @OneToMany(mappedBy = "mentor")
-//    private List<Mentoring> mentorList = new ArrayList<>();
-//
-//    @OneToMany(mappedBy = "mentee")
-//    private List<Mentoring> menteeList = new ArrayList<>();
 }
