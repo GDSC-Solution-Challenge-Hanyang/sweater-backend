@@ -79,5 +79,18 @@ public class Post {
         return post;
     }
 
+    public static Post createTestPost(CreatePostRequest request, Member member) {
+        Post post = new Post();
+        post.setId(1L);
+        post.setMember(member);
+        post.setTitle(request.getTitle());
+        post.setCategory(Integer.parseInt(request.getCategoryId()));
+        post.setContent(request.getContent());
+        post.setCreatedAt(LocalDateTime.now());
+        post.setUpdatedAt(LocalDateTime.now());
+        post.setStatus(Status.ACTIVE);
+        return post;
+    }
+
 
 }
