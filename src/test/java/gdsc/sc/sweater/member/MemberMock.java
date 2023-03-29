@@ -3,6 +3,7 @@ package gdsc.sc.sweater.member;
 import gdsc.sc.sweater.enums.MemberRole;
 import gdsc.sc.sweater.member.dto.CreateMemberRequest;
 import gdsc.sc.sweater.member.dto.CreateMemberResponse;
+import gdsc.sc.sweater.member.dto.MentorListResponse;
 
 public class MemberMock {
 
