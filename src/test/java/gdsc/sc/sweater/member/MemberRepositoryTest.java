@@ -52,7 +52,6 @@ public class MemberRepositoryTest {
         mentor1.setMenteeList(List.of(mentoring1)); //양방향 for isApplied
         mentor2.setMenteeList(List.of(mentoring2));
 
-        //when
         memberRepository.save(mentor1);
         memberRepository.save(mentor2);
         memberRepository.save(mentee);
