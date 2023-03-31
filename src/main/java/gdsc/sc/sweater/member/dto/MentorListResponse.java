@@ -29,3 +29,4 @@ public class MentorListResponse {
 //        System.out.println("menteeList: " + member.getMenteeList().get(0)); stream으로 확인. 안하면 에러
     }
 }
+

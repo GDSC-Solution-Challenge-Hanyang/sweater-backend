@@ -19,6 +19,9 @@ public class MentoringService {
     private final MemberRepository memberRepository;
 
 
+    /**
+     * [멘티] 멘토 신청
+     */
     @Transactional
     public String applyMentoring(Long memberId, Long mentorId) {
         Member mentee = memberRepository.findById(memberId)
@@ -42,4 +45,5 @@ public class MentoringService {
         acceptedMentoring.modifyStatusAsMatched();
         return "success";
     }
+
 }

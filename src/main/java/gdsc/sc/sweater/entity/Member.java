@@ -55,10 +55,11 @@ public class Member {
     private String description;
 
 
+
     @OneToMany(mappedBy = "mentee")
     private List<Mentoring> mentorList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "mentor")
+    @OneToMany(mappedBy = "mentor") //mentor FK로 menteeId 컬럼을 찾는다는 뜻
     private List<Mentoring> menteeList = new ArrayList<>();
 
 
@@ -85,6 +86,37 @@ public class Member {
         member.setUpdatedAt(LocalDateTime.now());
         member.setStatus(Status.ACTIVE);
         member.setRole(request.getRole());
+        return member;
+    }
+
+    public static Member createTestMemberWithId(Long id, String nickname, String email, String password, Status status, LocalDateTime createdAt, MemberRole role, String description, List<Mentoring> mentorList, List<Mentoring> menteeList) {
+        Member member = new Member();
+        member.setId(id);
+        member.setNickname(nickname);
+        member.setEmail(email);
+        member.setPassword(password);
+        member.setCreatedAt(LocalDateTime.now());
+        member.setUpdatedAt(LocalDateTime.now());
+        member.setStatus(status);
+        member.setRole(role);
+        member.setDescription(description);
+        member.setMenteeList(menteeList);
+        member.setMentorList(mentorList);
+        return member;
+    }
+
+    public static Member createTestMemberWithoutId(String nickname, String email, String password, Status status, LocalDateTime createdAt, MemberRole role, String description, List<Mentoring> mentorList, List<Mentoring> menteeList) {
+        Member member = new Member();
+        member.setNickname(nickname);
+        member.setEmail(email);
+        member.setPassword(password);
+        member.setCreatedAt(LocalDateTime.now());
+        member.setUpdatedAt(LocalDateTime.now());
+        member.setStatus(status);
+        member.setRole(role);
+        member.setDescription(description);
+        member.setMenteeList(menteeList);
+        member.setMentorList(mentorList);
         return member;
     }
 
