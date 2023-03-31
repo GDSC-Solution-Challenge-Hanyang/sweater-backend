@@ -10,6 +10,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter @Setter
 @Entity
@@ -36,27 +38,28 @@ public class Member {
     @Column(columnDefinition = "enum")
     private Status status;
 
-    
+
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-    
+
     @Column(name = "deleted_at")
     private LocalDateTime deletedAt;
 
     @Enumerated(EnumType.STRING)
     @Column(columnDefinition = "enum")
     private MemberRole role;
+    private String description;
 
 
-//    @OneToMany(mappedBy = "mentor")
-//    private List<Mentoring> mentorList = new ArrayList<>();
-//
-//    @OneToMany(mappedBy = "mentee")
-//    private List<Mentoring> menteeList = new ArrayList<>();
+    @OneToMany(mappedBy = "mentee")
+    private List<Mentoring> mentorList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "mentor")
+    private List<Mentoring> menteeList = new ArrayList<>();
 
 
     public static Member createMemberByRequest(CreateMemberRequest request) {

@@ -5,11 +5,13 @@ import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 
 @Getter
+@Setter
 @Entity
 @Table(name = "mentoring")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -38,5 +40,20 @@ public class Mentoring {
     @Enumerated(EnumType.STRING)
     @Column(columnDefinition = "enum")
     private MentoringStatus status;
+
+
+    public static Mentoring applyMentoring(Member mentee, Member mentor) {
+        Mentoring mentoring = new Mentoring();
+        mentoring.setMentor(mentor);
+        mentoring.setMentee(mentee);
+        mentoring.setCreatedAt( LocalDateTime.now());
+        mentoring.setUpdatedAt(LocalDateTime.now());
+        mentoring.setStatus(MentoringStatus.PENDING);
+        return mentoring;
+    }
+
+    public void modifyStatusAsMatched() {
+        this.status = MentoringStatus.MATCHED;
+    }
 
 }
