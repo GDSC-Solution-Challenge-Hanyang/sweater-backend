@@ -5,8 +5,10 @@ import gdsc.sc.sweater.common.exception.ErrorCode;
 import gdsc.sc.sweater.entity.Member;
 import gdsc.sc.sweater.entity.Mentoring;
 import gdsc.sc.sweater.enums.MemberRole;
+import gdsc.sc.sweater.enums.MentoringStatus;
 import gdsc.sc.sweater.enums.Status;
 import gdsc.sc.sweater.member.dto.CreateMemberRequest;
+import gdsc.sc.sweater.member.dto.FollowRequestListResponse;
 import gdsc.sc.sweater.member.dto.MentorListResponse;
 import gdsc.sc.sweater.mentoring.MentoringRepository;
 import lombok.RequiredArgsConstructor;
@@ -48,7 +50,7 @@ public class MemberService {
     /**
      * [멘티] 멘토 신청 리스트
      */
-    public List<MentorListResponse> getMentorApplicationList(Long memberId) {
+    public List<FollowRequestListResponse> getMentorApplicationList(Long memberId) {
         Member mentee = memberRepository.findById(memberId)
                 .orElseThrow(() -> new CustomException(ErrorCode.MEMBER_NOT_FOUND));
         List<Mentoring> mentorList = mentee.getMentorList();
@@ -60,14 +62,14 @@ public class MemberService {
                 ))
                 .values()
                 .stream()
-                .map(mentoring -> new MentorListResponse(mentoring.getMentor(), memberId))
+                .map(mentoring -> new FollowRequestListResponse(mentoring.getMentor(), memberId))
                 .collect(Collectors.toList());
     }
 
     /**
      * [멘토] 멘티 신청 리스트
      */
-    public List<MentorListResponse> getMenteeApplicationList(Long memberId) {
+    public List<FollowRequestListResponse> getMenteeApplicationList(Long memberId) {
         Member mentor = memberRepository.findById(memberId)
                 .orElseThrow(() -> new CustomException(ErrorCode.MEMBER_NOT_FOUND));
         List<Mentoring> menteeList = mentor.getMenteeList();
@@ -79,7 +81,7 @@ public class MemberService {
                 ))
                 .values()
                 .stream()
-                .map(mentoring -> new MentorListResponse(mentoring.getMentee(), memberId))
+                .map(mentoring -> new FollowRequestListResponse(mentoring.getMentee(), memberId))
                 .collect(Collectors.toList());
     }
 

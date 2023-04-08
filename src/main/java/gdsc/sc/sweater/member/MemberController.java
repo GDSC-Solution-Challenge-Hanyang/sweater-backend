@@ -4,6 +4,7 @@ import gdsc.sc.sweater.entity.Member;
 import gdsc.sc.sweater.entity.Mentoring;
 import gdsc.sc.sweater.member.dto.CreateMemberRequest;
 import gdsc.sc.sweater.member.dto.CreateMemberResponse;
+import gdsc.sc.sweater.member.dto.FollowRequestListResponse;
 import gdsc.sc.sweater.member.dto.MentorListResponse;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -43,8 +44,8 @@ public class MemberController {
      * Mentor Application List [멘티] 멘토 신청 목록
      */
     @GetMapping("mentor-application-list")
-    public ResponseEntity<List<MentorListResponse>> getMentorApplicationList(@RequestParam Long memberId) {
-        List<MentorListResponse> mentorApplicationList = memberService.getMentorApplicationList(memberId);
+    public ResponseEntity<List<FollowRequestListResponse>> getMentorApplicationList(@RequestParam Long memberId) {
+        List<FollowRequestListResponse> mentorApplicationList = memberService.getMentorApplicationList(memberId);
         return new ResponseEntity<>(mentorApplicationList, HttpStatus.OK);
     }
 
@@ -53,8 +54,8 @@ public class MemberController {
      * Mentee Application List [멘토]멘티 신청 목록
      */
     @GetMapping("/mentee-application-list")
-    public ResponseEntity<List<MentorListResponse>> getMenteeApplicationList(@RequestParam Long memberId) {
-        List<MentorListResponse> mentorList = memberService.getMenteeApplicationList(memberId);
+    public ResponseEntity<List<FollowRequestListResponse>> getMenteeApplicationList(@RequestParam Long memberId) {
+        List<FollowRequestListResponse> mentorList = memberService.getMenteeApplicationList(memberId);
         return new ResponseEntity<>(mentorList, HttpStatus.OK);
     }
 
