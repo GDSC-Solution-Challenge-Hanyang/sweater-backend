@@ -4,6 +4,7 @@ import gdsc.sc.sweater.common.exception.CustomException;
 import gdsc.sc.sweater.common.exception.ErrorCode;
 import gdsc.sc.sweater.entity.Member;
 import gdsc.sc.sweater.entity.Mentoring;
+import gdsc.sc.sweater.enums.MentoringStatus;
 import gdsc.sc.sweater.member.MemberRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -37,7 +38,10 @@ public class MentoringService {
      */
     @Transactional
     public String acceptMentoringRequest(Long memberId, Long menteeId) {
-        Mentoring acceptedMentoring = mentoringRepository.findMentoringByMenteeIdAndMentorId(menteeId, memberId);
+        Mentoring acceptedMentoring = mentoringRepository.findMentoringByMenteeIdAndMentorIdAndStatus(menteeId, memberId, MentoringStatus.PENDING);
+        if (acceptedMentoring == null) {
+            return "null";
+        }
         acceptedMentoring.modifyStatusAsMatched();
         return "success";
     }
