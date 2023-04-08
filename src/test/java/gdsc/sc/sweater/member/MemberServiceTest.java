@@ -8,6 +8,7 @@ import gdsc.sc.sweater.enums.MemberRole;
 import gdsc.sc.sweater.enums.MentoringStatus;
 import gdsc.sc.sweater.enums.Status;
 import gdsc.sc.sweater.member.dto.CreateMemberRequest;
+import gdsc.sc.sweater.member.dto.FollowRequestListResponse;
 import gdsc.sc.sweater.member.dto.MentorListResponse;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -121,18 +122,18 @@ public class MemberServiceTest {
 
         when(memberRepository.findById(memberId)).thenReturn(Optional.of(mentee));
 
-        List<MentorListResponse> result = memberService.getMentorApplicationList(memberId);
+        List<FollowRequestListResponse> result = memberService.getMentorApplicationList(memberId);
 
         assertEquals(2, result.size());
         assertEquals(10L, result.get(0).getMemberId());
         assertEquals("mentor1", result.get(0).getNickname());
         assertEquals("Description 1", result.get(0).getDescription());
-        assertEquals(true, result.get(0).isApplied());
+        assertEquals(true, result.get(0).isAccepted());
 
         assertEquals(11L, result.get(1).getMemberId());
         assertEquals("mentor2", result.get(1).getNickname());
         assertEquals("Description 2", result.get(1).getDescription());
-        assertEquals(true, result.get(1).isApplied());
+        assertEquals(true, result.get(1).isAccepted());
     }
 
 }
