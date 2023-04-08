@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/mentoring")
 @AllArgsConstructor
 public class MentoringController {
-    
+
     private final MentoringService mentoringService;
 
     /**
@@ -31,3 +31,4 @@ public class MentoringController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 }
+

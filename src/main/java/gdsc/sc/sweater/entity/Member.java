@@ -38,22 +38,22 @@ public class Member {
     @Column(columnDefinition = "enum")
     private Status status;
 
-    
+
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-    
+
     @Column(name = "deleted_at")
     private LocalDateTime deletedAt;
 
     @Enumerated(EnumType.STRING)
     @Column(columnDefinition = "enum")
     private MemberRole role;
-
     private String description;
+
 
 
     @OneToMany(mappedBy = "mentee")

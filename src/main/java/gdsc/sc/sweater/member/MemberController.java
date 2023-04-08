@@ -29,7 +29,6 @@ public class MemberController {
         return new ResponseEntity<>(new CreateMemberResponse(member.getId(), member.getEmail()),HttpStatus.OK);
     }
 
-
     /**
      * Mentor List [멘티] 멘토 리스트
      */

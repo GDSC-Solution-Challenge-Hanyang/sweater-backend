@@ -6,6 +6,9 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import java.time.LocalDateTime;
 
 import java.time.LocalDateTime;
 
@@ -48,10 +51,6 @@ public class Mentoring {
         return mentoring;
     }
 
-    public void modifyStatusAsMatched() {
-        this.status = MentoringStatus.MATCHED;
-    }
-
     public static Mentoring createMentoringForTest(Long pk, Member mentee, Member mentor, MentoringStatus status) {
         Mentoring mentoring = new Mentoring();
         mentoring.setId(pk);
@@ -63,5 +62,10 @@ public class Mentoring {
         return mentoring;
     }
 
+
+
+    public void modifyStatusAsMatched() {
+        this.status = MentoringStatus.MATCHED;
+    }
 
 }
