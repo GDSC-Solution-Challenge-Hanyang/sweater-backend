@@ -14,7 +14,6 @@ public class MentorListResponse {
     private String nickname;
     private String description;
     private boolean isApplied;
-    private boolean isAccepted;
 
     public MentorListResponse(Member member, Long menteeId) {
         this.memberId = member.getId();
