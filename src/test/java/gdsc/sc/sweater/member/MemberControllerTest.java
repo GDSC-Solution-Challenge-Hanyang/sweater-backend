@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import gdsc.sc.sweater.entity.Member;
 import gdsc.sc.sweater.member.dto.CreateMemberRequest;
 import gdsc.sc.sweater.member.dto.CreateMemberResponse;
+import gdsc.sc.sweater.member.dto.FollowRequestListResponse;
 import gdsc.sc.sweater.member.dto.MentorListResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -84,8 +85,8 @@ public class MemberControllerTest {
     public void getMentorApplicationListTest() throws Exception {
         //given
         Long memberId = 1L;
-        List<MentorListResponse> mentorApplicationListResponse = Arrays.asList(
-                new MentorListResponse(11L, "mentor2", "Description2", true)
+        List<FollowRequestListResponse> mentorApplicationListResponse = Arrays.asList(
+                new FollowRequestListResponse(11L, "mentor2", "Description2", true)
         );
 
         //when
@@ -105,8 +106,8 @@ public class MemberControllerTest {
     public void getMenteeApplicationListTest() throws Exception {
         Long memberId = 11L;
 
-        List<MentorListResponse> menteeApplicationListResponse = Arrays.asList(
-                new MentorListResponse(1L, "mentee1",null, true)
+        List<FollowRequestListResponse> menteeApplicationListResponse = Arrays.asList(
+                new FollowRequestListResponse(1L, "mentee1",null, true)
         );
 
         when(memberService.getMenteeApplicationList(memberId)).thenReturn(menteeApplicationListResponse);
